@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+  <title>CommCare HQ FHIR Patient</title>
+  <style>
+  h1 {
+    font-family: sans;
+  }
+
+  th {
+    background: gray;
+    color: white;
+    padding: 0.5em;
+  }
+  </style>
+</head>
+<body>
+  <h1>CommCare HQ FHIR Patient</h1>
+
+  {% if not patient %}
+  <p>Patient not found</p>
+  {% else %}
+  <table>
+      <tr>
+        <th colspan="2">
+          Patient
+        </th>
+      </tr>
+
+      <tr>
+        <td>Name:</td>
+        <td>{{ patient['name'][0]['text'] }}</td>
+      </tr>
+      <tr>
+        <td>Date of birth:</td>
+        <td>{{ patient['birthDate'] }}</td>
+      </tr>
+      <tr>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+
+      {% if observations %}
+      <tr>
+        <th colspan="2">
+          Observations
+        </th>
+      </tr>
+
+      {% for obs in observations %}
+      <tr>
+        <td>Code:</td>
+        <td>{{ obs['code']['coding'][0]['display'] }}</td>
+      </tr>
+      <tr>
+        <td>Value:</td>
+        <td>
+          {{ obs['valueQuantity']['value'] }}
+          {{ obs['valueQuantity']['unit'] }}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+      {% endfor %}
+      {% endif %}
+
+      {% if diag_reports %}
+      <tr>
+        <th colspan="2">
+          Diagnostic Reports
+        </th>
+      </tr>
+
+      {% for rep in diag_reports %}
+      <tr>
+        <td>Code:</td>
+        <td>{{ rep['code']['coding'][0]['display'] }}</td>
+      </tr>
+      <tr>
+        <td>Conclusion:</td>
+        <td>
+          {{ rep['conclusion'] }}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+      {% endfor %}
+      {% endif %}
+  </table>
+  {% endif %}
+
+  <p>
+    <a href="/"><button>Back</button></a>
+  </p>
+</body>
+</html>

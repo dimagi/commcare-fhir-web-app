@@ -1,0 +1,4 @@
+export CCHQ_BASE_URL=https://www.commcarehq.org/
+export CCHQ_PROJECT_SPACE=example
+export CCHQ_USERNAME=admin@example.com
+export CCHQ_API_KEY=s3cr3t
